@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Assignments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #box:hover {
+            background-color: coral;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Assignments</h1>
+
+    <!-- Document Manipulation Section -->
+    <section>
+        <h2>Product List</h2>
+        <div id="productList"></div>
+    </section>
+
+    <!-- Form Manipulation Section -->
+    <section>
+        <h2>Contact Form</h2>
+        <form id="contactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" required></textarea><br><br>
+            <button type="submit">Submit</button>
+            <p id="errorMessage" class="error"></p>
+        </form>
+    </section>
+
+    <!-- Styling with JavaScript Section -->
+    <section>
+        <h2>Dynamic Styling</h2>
+        <div id="box">Click me</div>
+    </section>
+
+    <script>
+        // Document Manipulation Section
+        let products = [
+            { name: "Laptop", price: 999.99, description: "Powerful computing on the go" },
+            { name: "Smartphone", price: 699.99, description: "Stay connected wherever you are" },
+            { name: "Headphones", price: 149.99, description: "Immersive audio experience" }
+        ];
+
+        function displayProducts() {
+            const productList = document.getElementById("productList");
+            products.forEach(product => {
+                const productDiv = document.createElement("div");
+                productDiv.className = "product";
+                productDiv.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <p>${product.description}</p>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        // Trigger display on page load
+        window.addEventListener("load", displayProducts);
+
+        // Form Manipulation Section
+        const form = document.getElementById("contactForm");
+        const errorMessage = document.getElementById("errorMessage");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (!name || !email || !message) {
+                errorMessage.textContent = "Please fill out all fields.";
+                return;
+            }
+
+            const userInput = { name, email, message };
+            console.log("Form Submission:", userInput);
+
+            errorMessage.textContent = "";
+            alert("Form submitted successfully!");
+            form.reset();
+        });
+
+        // Styling with JavaScript Section
+        const box = document.getElementById("box");
+
+        box.addEventListener("click", function () {
+            const colors = ["lightblue", "coral", "lightgreen", "yellow", "purple"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            box.style.backgroundColor = randomColor;
+        });
+    </script>
+</body>
+</html>
